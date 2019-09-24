@@ -15,16 +15,30 @@ var db = Mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var app = express();
+app.use(BodyParser.json());
+
 app.get('/', function (req, res) {
   res.send('Hello World!');
   proj_models.create_project('aa', 'bb', 'cc');
 });
+
 app.get('/projects', function (req, res) {
   jsonfile.readFile('all_projects.json', (err, data) => {
       if (err) throw  err;
       res.json(data);
   });
 });
+
+// Create a project
+
+var jsonParser = BodyParser.json()
+app.post('/create_project',jsonParser, function(req, res){
+    var item = req.body;
+    proj_models.create_project(item.title, item.description, item.media);
+    res.send('added project')
+});
+
+
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
 });
