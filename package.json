@@ -1,0 +1,24 @@
+{
+  "name": "api_v2",
+  "version": "0.0.1",
+  "description": "Version two of the API, continuing on from build week",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Dekker-Build-Week/API_v2.git"
+  },
+  "author": "AND Dekker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Dekker-Build-Week/API_v2/issues"
+  },
+  "homepage": "https://github.com/Dekker-Build-Week/API_v2#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "mongoose": "^5.7.1"
+  }
+}
