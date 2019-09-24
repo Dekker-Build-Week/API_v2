@@ -2,6 +2,7 @@ const Mongoose = require("mongoose");
 const BodyParser = require("body-parser");
 var express = require('express');
 const jsonfile = require('jsonfile');
+var proj_models = require('./models/project');
 
 //Set up default mongoose connection
 var mongoDB = 'mongodb://test_account:TestPassword123@ds227459.mlab.com:27459/build-week-db';
@@ -16,6 +17,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 var app = express();
 app.get('/', function (req, res) {
   res.send('Hello World!');
+  proj_models.create_project('aa', 'bb', 'cc');
 });
 app.get('/projects', function (req, res) {
   jsonfile.readFile('all_projects.json', (err, data) => {

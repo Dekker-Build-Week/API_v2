@@ -8,4 +8,10 @@ var projectSchema = new Schema({
    media: [String] 
 });
 
+function create_project(title, description, media){
+    console.log('this is a stub');
+}
+
+
 module.exports = mongoose.model('Project', projectSchema);
+module.exports.create_project = create_project;
