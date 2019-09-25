@@ -10,43 +10,31 @@ var projectSchema = new Schema({
 
 var project = mongoose.model('Project', projectSchema);
 
-function create_project(title, description, media, callback){
+async function create_project(title, description, media){
     
     var newProject = new project({ title: title, description: description, media: media });
-    newProject.save(function (err, project) {
-    if (err) return console.log('Creation failed');
-    console.log('created project');
+    await newProject.save(function (err, project) {
+    if (err) return console.error('err');
     });
-    return { title: title, description: description, media: media }
+    return newProject;
 }
 
-function get_project(title, description, media, callback){
+async function get_project(title, description, media){
     var proj = {title: title, description: description, media: media}
-    project.find(proj).then(function(result){
-        console.log('success!');
-        console.log(result);
+    const foundProject = await project.findOne(proj, (err, result) => {
+        if (err)
+            console.error(err);
         return result;
-    }).catch(function(err){
-        console.log(err)
     });
+    return foundProject;
 }
 
-function remove_project({title, description, media}) {
+async function remove_project({title, description, media}) {
     var proj = {title: title, description: description, media: media}
-    //project.deleteOne({title: title, description: description, media: media}, function (err) {
-    //    if (err) {
-    //        console.log('Error removing project', err);
-    //    }
-    //    else {
-    //        console.log('Removing project was successful')
-    //    }
-    //});
-    project.deleteOne(proj).then(function(result){
-        console.log('delete');
-        return result;
-    }).catch(function(err){
-        console.log(err)
+    var foo = await project.deleteOne(proj, function(err){
+        if (err) console.log(err);
     });
+    //console.log('foo is ', foo);
 }
 
 module.exports = mongoose.model('Project', projectSchema);
