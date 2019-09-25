@@ -10,35 +10,42 @@ var projectSchema = new Schema({
 
 var project = mongoose.model('Project', projectSchema);
 
-function create_project(title, description, media){
-    console.log('this is a stub');
+function create_project(title, description, media, callback){
     
     var newProject = new project({ title: title, description: description, media: media });
     newProject.save(function (err, project) {
     if (err) return console.log('Creation failed');
-    return project;
+    console.log('created project');
     });
+    return { title: title, description: description, media: media }
 }
 
-function get_project(title, description, media){
-    project.find({title: title, description: description, media: media}, function (err, project) {
-        if (err) {
-            console.log('Error retrieving project: ', err);
-        }
-        else {
-            return project;
-        }
+function get_project(title, description, media, callback){
+    var proj = {title: title, description: description, media: media}
+    project.find(proj).then(function(result){
+        console.log('success!');
+        console.log(result);
+        return result;
+    }).catch(function(err){
+        console.log(err)
     });
 }
 
 function remove_project({title, description, media}) {
-    project.deleteOne({title: title, description: description, media: media}, function (err) {
-        if (err) {
-            console.log('Error removing project', err);
-        }
-        else {
-            console.log('Removing project was successful')
-        }
+    var proj = {title: title, description: description, media: media}
+    //project.deleteOne({title: title, description: description, media: media}, function (err) {
+    //    if (err) {
+    //        console.log('Error removing project', err);
+    //    }
+    //    else {
+    //        console.log('Removing project was successful')
+    //    }
+    //});
+    project.deleteOne(proj).then(function(result){
+        console.log('delete');
+        return result;
+    }).catch(function(err){
+        console.log(err)
     });
 }
 

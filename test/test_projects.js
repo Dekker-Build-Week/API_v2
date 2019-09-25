@@ -25,7 +25,9 @@ describe('Project Model', function() {
     after(function() {
         var test1 = {title: 't1', description: 'd1', media: ['a']};
         proj_models.remove_project(test1);
+        console.log('unreachable');
         //db.close();
     });
+        console.log('unreachable2');
   });
 });
