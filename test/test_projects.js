@@ -17,10 +17,10 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 describe('Project Model', function() {
   describe('#create_project', function() {
     it('should create a project', function() {
-        var test1 = {title: "t1", description: "d1", media: ["a"]};
-        //proj_models.create_project(test1.title, test1.description, test1.media);
-        var test2 = proj_models.get_project(test1.title, test1.description, test1.media);
-        assert.equal(test1, test2, 'Input data should correctly be stored in the DB');
+        var project_details = {title: "t1", description: "d1", media: ["a"]};
+        var new_project = proj_models.create_project(project_details.title, project_details.description, project_details.media);
+        var saved_project = proj_models.get_project(project_details.title, project_details.description, project_details.media);
+        assert.equal(new_project, saved_project, 'Input data should correctly be stored in the DB');
     });
     after(function() {
         var test1 = {title: 't1', description: 'd1', media: ['a']};

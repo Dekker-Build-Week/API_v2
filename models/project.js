@@ -14,8 +14,9 @@ function create_project(title, description, media){
     console.log('this is a stub');
     
     var newProject = new project({ title: title, description: description, media: media });
-    newProject.save(function (err) {
+    newProject.save(function (err, project) {
     if (err) return console.log('Creation failed');
+    return project;
     });
 }
 
