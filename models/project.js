@@ -26,6 +26,7 @@ async function create_project(ttl, desc, c, tm, tcStks, imgs, vids) {
     await newProject.save(function(err, project) {
         if (err) return console.error("err");
     });
+    console.log(newProject.title, " successfully created.");
     return newProject;
 }
 
@@ -38,15 +39,22 @@ async function get_project(projectId) {
 }
 
 async function get_all_projects() {
-    // var allProjects = await project.
+    var allProjects = await project.find(project, (err, result) => {
+        if (err) console.error(err);
+        return result;
+    });
+    return allProjects;
 }
 
 async function remove_project(projectId) {
-    var deleted_proj = await project.findByIdAndDelete(projectId, function(err, result) {
+    var deleted_proj = await project.findByIdAndDelete(projectId, function(
+        err,
+        result
+    ) {
         if (err) console.log(err);
         return result;
     });
-    console.log(deleted_proj.title, ' has been successfully deleted.');
+    console.log(deleted_proj.title, " has been successfully deleted.");
 }
 
 module.exports = mongoose.model("Project", projectSchema);
