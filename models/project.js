@@ -7,8 +7,8 @@ var projectSchema = new Schema({
     clients: { name: String, imagePath: String },
     team: [{ name: String, photoPath: String }],
     techStacks: [{ name: String, imagePath: String, important: Boolean }],
-    coverImage: { imagePath: String },
-    video: { videoPath: String }
+    coverImagePath: String ,
+    videoPath: String 
 });
 
 var project = mongoose.model("Project", projectSchema);
@@ -20,11 +20,11 @@ async function create_project(ttl, desc, c, tm, tcStks, imgs, vids) {
         clients: c,
         team: tm,
         techStacks: tcStks,
-        images: imgs,
-        video: vids
+        coverImagePath: imgs,
+        videoPath: vids
     });
     await newProject.save(function(err, project) {
-        if (err) return console.error("err");
+        if (err) return console.error(err);
     });
     console.log(newProject.title, " successfully created.");
     return newProject;
@@ -39,10 +39,11 @@ async function get_project(projectId) {
 }
 
 async function get_all_projects() {
-    var allProjects = await project.find(project, (err, result) => {
+    var allProjects = await project.find((err, result) => {
         if (err) console.error(err);
         return result;
     });
+    console.log("Projects", allProjects);
     return allProjects;
 }
 
@@ -61,3 +62,4 @@ module.exports = mongoose.model("Project", projectSchema);
 module.exports.create_project = create_project;
 module.exports.get_project = get_project;
 module.exports.remove_project = remove_project;
+module.exports.get_all_projects = get_all_projects;

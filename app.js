@@ -4,6 +4,7 @@ var express = require('express');
 const jsonfile = require('jsonfile');
 var proj_models = require('./models/project');
 var multer = require('multer');
+
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './media');
@@ -48,6 +49,18 @@ app.post('/create_project',jsonParser, upload.array('files'), function(req, res)
     proj_models.create_project(item.title, item.description, item.media);
     res.send('added project')
 });
+
+app.post('/create_project_new',jsonParser, upload.array('files'), function(req, res){  
+  var item = req.body;
+  proj = proj_models.create_project(item.title, item.description, item.clients, item.team, item.techStacks, item.coverImagePath, item.videoPath);
+  res.send('Succesfully added project');
+});
+
+app.get('/get_all_projects', async function(req, res){
+  var all_projects = await proj_models.get_all_projects();
+  console.log('Res Projects', all_projects);
+  res.send(all_projects);
+})
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
