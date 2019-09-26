@@ -9,36 +9,38 @@ var clientSchema = new Schema({
 
 var client = mongoose.model("Client", clientSchema);
 
-function create_client(_name, _imagePath) {
+async function create_client(_name, _imagePath) {
   var newClient = new client({ name: _name, imagePath: _imagePath });
-  newClient.save(function(err, client) {
+  await newClient.save(function(err) {
     if (err) {
       return console.log("Error creating client " + _name);
     } else {
-      return client;
+      return newClient;
     }
   });
 }
 
-function get_client(_name) {
-  client.find({ name: _name }, function(err, client) {
+async function get_client(_name, _imagePath) {
+  var newClient = new client({ name: _name, imagePath: _imagePath });
+  var foundClient = await client.findOne(newClient, (err, client) => {
     if (err) {
       console.log("Error retrieving " + _name, err);
     } else {
       return client;
     }
   });
+  return foundClient;
 }
 
-function remove_client(_name, _imagePath){
-    client.deleteOne({name: _name, imagePath: _imagePath}, function(err){
-        if (err){
-            console.log('Error removing ' + _name);
-        }
-        else{
-            console.log(_name + ' successfully removed');
-        }
-    })
+async function remove_client(_name, _imagePath) {
+  var newClient = new client({ name: _name, imagePath: _imagePath });
+  await client.deleteOne(newClient, function(err) {
+    if (err) {
+      console.log("Error removing " + _name);
+    } else {
+      console.log(_name + " successfully removed");
+    }
+  });
 }
 
 module.exports = mongoose.model("Client", clientSchema);
