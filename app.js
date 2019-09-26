@@ -3,7 +3,17 @@ const BodyParser = require("body-parser");
 var express = require('express');
 const jsonfile = require('jsonfile');
 var proj_models = require('./models/project');
+var multer = require('multer');
+var storage = multer.diskStorage({
+  destination: function (req, file, callback) {
+    callback(null, './media');
+  },
+  filename: function(req,file,callback){
+    callback(null, file.originalname);
+}
+});
 
+var upload = multer({ storage: storage })
 //Set up default mongoose connection
 var mongoDB = 'mongodb://test_account:TestPassword123@ds227459.mlab.com:27459/build-week-db';
 Mongoose.connect(mongoDB, { useNewUrlParser: true });
@@ -33,7 +43,7 @@ app.get('/projects', function (req, res) {
 // Create a project
 
 var jsonParser = BodyParser.json()
-app.post('/create_project',jsonParser, function(req, res){
+app.post('/create_project',jsonParser, upload.array('files'), function(req, res){  
     var item = req.body;
     proj_models.create_project(item.title, item.description, item.media);
     res.send('added project')
