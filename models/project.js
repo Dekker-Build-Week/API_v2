@@ -2,47 +2,51 @@ const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
-  title: String,
-  description: String,
-  clients: { name: String, imagePath: String },
-  team: [{ name: String, photoPath: String }],
-  techStacks: [{ name: String, imagePath: String, important: Boolean }],
-  images: [{ imagePath: String, position: Number }],
-  video: { videoPath: String }
+    title: String,
+    description: String,
+    clients: { name: String, imagePath: String },
+    team: [{ name: String, photoPath: String }],
+    techStacks: [{ name: String, imagePath: String, important: Boolean }],
+    images: [{ imagePath: String, position: Number }],
+    video: { videoPath: String }
 });
 
 var project = mongoose.model("Project", projectSchema);
 
-async function create_project(title, description, clients, team, techStacks, images, video) {
-  var newProject = new project({
-    title: title,
-    description: description,
-    clients: clients,
-    team: team,
-    techStacks: techStacks,
-    images: images,
-    video: video
-  });
-  await newProject.save(function(err, project) {
-    if (err) return console.error("err");
-  });
-  return newProject;
+async function create_project(ttl, desc, c, tm, tcStks, imgs, vids) {
+    var newProject = new project({
+        title: ttl,
+        description: desc,
+        clients: c,
+        team: tm,
+        techStacks: tcStks,
+        images: imgs,
+        video: vids
+    });
+    await newProject.save(function(err, project) {
+        if (err) return console.error("err");
+    });
+    return newProject;
 }
 
 async function get_project(projectId) {
-  var foundProject = await project.findById(projectId, (err, result) => {
-    if (err) console.error(err);
-    return result;
-  });
-  return foundProject;
+    var foundProject = await project.findById(projectId, (err, result) => {
+        if (err) console.error(err);
+        return result;
+    });
+    return foundProject;
 }
 
-async function remove_project({ title, description, media }) {
-  var proj = { title: title, description: description, media: media };
-  var foo = await project.deleteOne(proj, function(err) {
-    if (err) console.log(err);
-  });
-  //console.log('foo is ', foo);
+async function get_all_projects() {
+    // var allProjects = await project.
+}
+
+async function remove_project(projectId) {
+    var deleted_proj = await project.findByIdAndDelete(projectId, function(err, result) {
+        if (err) console.log(err);
+        return result;
+    });
+    console.log(deleted_proj.title, ' has been successfully deleted.');
 }
 
 module.exports = mongoose.model("Project", projectSchema);
