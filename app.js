@@ -16,6 +16,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var app = express();
 app.use(BodyParser.json());
+app.use(express.static('media'));
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
