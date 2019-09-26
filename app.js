@@ -5,6 +5,7 @@ var cors = require('cors')
 const jsonfile = require('jsonfile');
 var proj_models = require('./models/project');
 var multer = require('multer');
+process.env.PWD = process.cwd()
 
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
@@ -28,7 +29,7 @@ db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 var app = express();
 app.use(BodyParser.json());
-app.use(express.static('media'));
+app.use(express.static(process.env.PWD + '/media'));
 app.use(cors())
 
 app.get('/', function (req, res) {
