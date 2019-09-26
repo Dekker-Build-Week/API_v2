@@ -13,11 +13,15 @@ var projectSchema = new Schema({
 
 var project = mongoose.model("Project", projectSchema);
 
-async function create_project(title, description, media) {
+async function create_project(title, description, clients, team, techStacks, images, video) {
   var newProject = new project({
     title: title,
     description: description,
-    media: media
+    clients: clients,
+    team: team,
+    techStacks: techStacks,
+    images: images,
+    video: video
   });
   await newProject.save(function(err, project) {
     if (err) return console.error("err");
@@ -25,9 +29,8 @@ async function create_project(title, description, media) {
   return newProject;
 }
 
-async function get_project(title, description, media) {
-  var proj = { title: title, description: description, media: media };
-  const foundProject = await project.findOne(proj, (err, result) => {
+async function get_project(projectId) {
+  var foundProject = await project.findById(projectId, (err, result) => {
     if (err) console.error(err);
     return result;
   });
