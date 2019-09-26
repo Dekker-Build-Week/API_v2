@@ -4,6 +4,7 @@
   "description": "Version two of the API, continuing on from build week",
   "main": "app.js",
   "scripts": {
+    "build": "npm install",
     "start": "node app.js",
     "test": "mocha"
   },
