@@ -53,7 +53,7 @@ app.post('/create_project',jsonParser, upload.array('files'), function(req, res)
 app.post('/create_project_new',jsonParser, upload.array('files'), function(req, res){  
   var item = req.body;
   proj = proj_models.create_project(item.title, item.description, item.clients, item.team, item.techStacks, item.coverImagePath, item.videoPath);
-  res.send('Succesfully added project');
+  res.send('Successfully added project');
 });
 
 app.get('/get_all_projects', async function(req, res){
