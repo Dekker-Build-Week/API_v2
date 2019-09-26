@@ -7,7 +7,7 @@ var projectSchema = new Schema({
     clients: { name: String, imagePath: String },
     team: [{ name: String, photoPath: String }],
     techStacks: [{ name: String, imagePath: String, important: Boolean }],
-    images: [{ imagePath: String, position: Number }],
+    coverImage: { imagePath: String },
     video: { videoPath: String }
 });
 
