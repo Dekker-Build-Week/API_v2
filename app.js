@@ -40,5 +40,5 @@ app.post('/create_project',jsonParser, function(req, res){
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {
-  console.log('API listening on port ${PORT}!');
+  console.log(`API listening on port ${ PORT }!`);
 });
