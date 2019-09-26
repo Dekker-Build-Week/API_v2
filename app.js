@@ -52,7 +52,7 @@ app.post('/create_project',jsonParser, upload.array('files'), function(req, res)
 
 app.post('/create_project_new',jsonParser, upload.array('files'), function(req, res){  
   var item = req.body;
-  proj = proj_models.create_project(item.title, item.description, item.clients, item.team, item.techStacks, item.coverImagePath, item.videoPath);
+  proj = proj_models.create_project(item.title, item.description, item.client, item.team, item.techStacks, item.coverImagePath, item.videoPath);
   res.send('Successfully added project');
 });
 
@@ -61,6 +61,8 @@ app.get('/get_all_projects', async function(req, res){
   console.log('Res Projects', all_projects);
   res.send(all_projects);
 })
+
+// app.get('/get_project', )
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {

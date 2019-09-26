@@ -4,9 +4,9 @@ var Schema = mongoose.Schema;
 var projectSchema = new Schema({
     title: String,
     description: String,
-    clients: { name: String, imagePath: String },
+    client: { name: String, imagePath: String },
     team: [{ name: String, photoPath: String }],
-    techStacks: [{ name: String, imagePath: String, important: Boolean }],
+    techStacks: [{ name: String, imagePath: String}],
     coverImagePath: String ,
     videoPath: String 
 });
@@ -17,7 +17,7 @@ async function create_project(ttl, desc, c, tm, tcStks, imgs, vids) {
     var newProject = new project({
         title: ttl,
         description: desc,
-        clients: c,
+        client: c,
         team: tm,
         techStacks: tcStks,
         coverImagePath: imgs,
