@@ -60,12 +60,12 @@ app.post('/create_project_new',jsonParser, upload.array('files'), function(req, 
 });
 
 app.get('/get_all_projects', async function(req, res){
-  var all_projects = await proj_models.get_all_projects();
+  const { page, limit, orderBy } = req.query;
+
+  var all_projects = await proj_models.get_all_projects(parseInt(page), parseInt(limit), orderBy);
   console.log('Res Projects', all_projects);
   res.send(all_projects);
 })
-
-// app.get('/get_project', )
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, function () {

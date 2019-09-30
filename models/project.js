@@ -38,11 +38,15 @@ async function get_project(projectId) {
     return foundProject;
 }
 
-async function get_all_projects() {
-    var allProjects = await project.find((err, result) => {
+async function get_all_projects(page = 1, limit= 8, orderBy='title') {
+    console.log(limit);
+    
+    var allProjects = await project.find({}, null, { skip: limit*(page-1), limit, sort:orderBy }, (err, result) => {
         if (err) console.error(err);
         return result;
-    });
+    })
+
+
     console.log("Projects", allProjects);
     return allProjects;
 }
