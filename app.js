@@ -38,6 +38,9 @@ app.get('/', function (req, res) {
 });
 
 // Create a project
+
+var jsonParser = BodyParser.json()
+
 app.post('/create_project_new',jsonParser, upload.array('files'), function(req, res){  
   var item = req.body;
   proj = proj_models.create_project(item.title, item.description, item.client, item.team, item.techStacks, item.coverImagePath, item.videoPath);
