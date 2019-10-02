@@ -7,6 +7,7 @@ var proj_models = require('./models/project');
 var multer = require('multer');
 process.env.PWD = process.cwd()
 
+//Storage location for any uploaded media
 var storage = multer.diskStorage({
   destination: function (req, file, callback) {
     callback(null, './media');
@@ -37,16 +38,16 @@ app.get('/', function (req, res) {
   proj_models.create_project('aa', 'bb', 'cc');
 });
 
-// Create a project
-
 var jsonParser = BodyParser.json()
 
+//Endpoint for creating a new project
 app.post('/create_project_new',jsonParser, upload.array('files'), function(req, res){  
   var item = req.body;
   proj = proj_models.create_project(item.title, item.description, item.client, item.team, item.techStacks, item.coverImagePath, item.videoPath, item.images);
   res.send('Successfully added project');
 });
 
+//Endpoint for getting all projects
 app.get('/get_all_projects', async function(req, res){
   const { page, limit, orderBy } = req.query;
 

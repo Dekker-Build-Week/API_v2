@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+//Mongoose schema for a project
 var projectSchema = new Schema({
     title: String,
     description: String,
@@ -53,19 +54,8 @@ async function get_all_projects(page = 1, limit= 8, orderBy='title') {
     return allProjects;
 }
 
-async function remove_project(projectId) {
-    var deleted_proj = await project.findByIdAndDelete(projectId, function(
-        err,
-        result
-    ) {
-        if (err) console.log(err);
-        return result;
-    });
-    console.log(deleted_proj.title, " has been successfully deleted.");
-}
-
+//Export the project schema and methods
 module.exports = mongoose.model("Project", projectSchema);
 module.exports.create_project = create_project;
 module.exports.get_project = get_project;
-module.exports.remove_project = remove_project;
 module.exports.get_all_projects = get_all_projects;
