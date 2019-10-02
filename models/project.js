@@ -8,20 +8,22 @@ var projectSchema = new Schema({
     team: [{ name: String, photoPath: String }],
     techStacks: [{ name: String, imagePath: String}],
     coverImagePath: String ,
-    videoPath: String 
+    videoPath: String,
+    images: [{name:String, position:Number}]
 });
 
 var project = mongoose.model("Project", projectSchema);
 
-async function create_project(ttl, desc, c, tm, tcStks, imgs, vids) {
+async function create_project(ttl, desc, c, tm, tcStks, coverImage, vids, imgs) {
     var newProject = new project({
         title: ttl,
         description: desc,
         client: c,
         team: tm,
         techStacks: tcStks,
-        coverImagePath: imgs,
-        videoPath: vids
+        coverImagePath: coverImage,
+        videoPath: vids,
+        images: imgs
     });
     await newProject.save(function(err, project) {
         if (err) return console.error(err);
