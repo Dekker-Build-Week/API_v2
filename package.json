@@ -19,10 +19,10 @@
   },
   "homepage": "https://github.com/Dekker-Build-Week/API_v2#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "jsonfile": "^5.0.0",
     "mocha": "^6.2.0",
     "mongoose": "^5.7.1",
